@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "314410759195",
-    "project_id": "moneymate-bce7f",
-    "storage_bucket": "moneymate-bce7f.appspot.com"
+    "project_number": "751204441571",
+    "project_id": "quotesapp-32b78",
+    "storage_bucket": "daily-quote-63b23.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:314410759195:android:b9fdf26efb60cb4e4e34be",
+        "mobilesdk_app_id": "1:751204441571:android:3af37359827205a01b94d6",
         "android_client_info": {
-          "package_name": "uk.ac.tees.mad.moneymate"
+          "package_name": "uk.ac.tees.mad.quotesapp"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBQDhDO72AEMFPTHKCCRWj5UV3_GvAzP6Y"
+          "current_key": "AIzaSyAtHN97_4cPGHWIxO7A36gHUZ3cd9PbzRY"
         }
       ],
       "services": {
