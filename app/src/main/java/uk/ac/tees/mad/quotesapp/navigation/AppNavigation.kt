@@ -6,7 +6,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import uk.ac.tees.mad.quotesapp.ui.screen.AuthenticationScreen
 import uk.ac.tees.mad.quotesapp.MainViewModel
+import uk.ac.tees.mad.quotesapp.ui.screen.LoginScreen
+import uk.ac.tees.mad.quotesapp.ui.screen.RegistrationScreen
 import uk.ac.tees.mad.quotesapp.ui.screen.SplashScreen
 
 
@@ -36,6 +39,20 @@ fun AppNavigation(callDark: () -> Unit) {
                 SplashScreen(vm = vm, navController = navController)
             }
 
+            composable(NavigateInApp.AUTHENTICATIONSCREEN.route) {
+                AuthenticationScreen(vm, navController)
+            }
+
+            composable(NavigateInApp.REGISTER.route) {
+                RegistrationScreen(vm, navController)
+            }
+
+            composable(NavigateInApp.LOGIN.route) {
+                LoginScreen(vm, navController)
+            }
+            composable(NavigateInApp.TODAYSCREEN.route) {
+
+            }
         }
     }
 }
