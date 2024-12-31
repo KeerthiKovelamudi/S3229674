@@ -11,6 +11,7 @@ import uk.ac.tees.mad.quotesapp.MainViewModel
 import uk.ac.tees.mad.quotesapp.ui.screen.LoginScreen
 import uk.ac.tees.mad.quotesapp.ui.screen.RegistrationScreen
 import uk.ac.tees.mad.quotesapp.ui.screen.SplashScreen
+import uk.ac.tees.mad.quotesapp.ui.screen.TodayScreen
 
 
 enum class NavigateInApp(val route: String) {
@@ -51,7 +52,7 @@ fun AppNavigation(callDark: () -> Unit) {
                 LoginScreen(vm, navController)
             }
             composable(NavigateInApp.TODAYSCREEN.route) {
-
+                TodayScreen(vm = vm, navController = navController, callDark = callDark)
             }
         }
     }
