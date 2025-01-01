@@ -20,6 +20,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import uk.ac.tees.mad.W9606817.Data.Local.Quote
 import uk.ac.tees.mad.quotesapp.Repository.QuoteRepository
+import uk.ac.tees.mad.quotesapp.data.Favorites.FavoriteQuotes
 import javax.inject.Inject
 import kotlin.toString
 
@@ -33,6 +34,9 @@ class MainViewModel @Inject constructor(
     private val _loading = MutableStateFlow(true)
     val loading: StateFlow<Boolean> = _loading.asStateFlow()
 
+
+    private val _favorites = MutableLiveData<List<FavoriteQuotes>>()
+    val favorites: LiveData<List<FavoriteQuotes>> get() = _favorites
 
     private val _quotes = MutableLiveData<List<Quote>>()
     val quotes: LiveData<List<Quote>> get() = _quotes
@@ -92,6 +96,33 @@ class MainViewModel @Inject constructor(
             Log.d("_quotesValue", _quotes.value.toString())
             Log.d("Todays Quote", _quotesFromToday.value.toString())
         }
+    }
+
+
+    fun addFavorites(favQuote: Quote) {
+        val result = mapEntity(favQuote)
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addFavorites(result)
+        }
+        loadFavorites()
+
+    }
+
+    fun loadFavorites() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val favorites = repository.getFavorites()
+            _favorites.postValue(favorites)
+        }
+    }
+
+    fun mapEntity(quote: Quote): FavoriteQuotes {
+        return FavoriteQuotes(
+            c = quote.c,
+            q = quote.q,
+            a = quote.a,
+            h = quote.h,
+            deviceDate = quote.deviceDate
+        )
     }
 
     fun signUp(context: Context, email: String, password: String) {

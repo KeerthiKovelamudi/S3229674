@@ -15,6 +15,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import uk.ac.tees.mad.quotesapp.data.Favorites.FavoriteDao
+import uk.ac.tees.mad.quotesapp.data.Favorites.FavoriteDatabase
 import uk.ac.tees.mad.quotesapp.data.Local.QuoteDao
 import uk.ac.tees.mad.quotesapp.data.Local.QuoteDatabase
 import uk.ac.tees.mad.quotesapp.data.Remote.QuoteService
@@ -22,8 +24,7 @@ import uk.ac.tees.mad.quotesapp.data.Remote.QuoteService
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
-
+    
     @Provides
     fun provideDatabase(
         @ApplicationContext context: Context,
@@ -48,6 +49,18 @@ object AppModule {
     @Provides
     fun providesQuoteService(retrofit: Retrofit): QuoteService {
         return retrofit.create(QuoteService::class.java)
+    }
+
+    @Provides
+    fun provideFavoriteDatabase(
+        @ApplicationContext context: Context
+    ): FavoriteDatabase {
+        return FavoriteDatabase.getFavoriteDatabase(context)
+    }
+
+    @Provides
+    fun provideFavoriteDao(database: FavoriteDatabase): FavoriteDao {
+        return database.favoriteDao()
     }
 
     @Provides

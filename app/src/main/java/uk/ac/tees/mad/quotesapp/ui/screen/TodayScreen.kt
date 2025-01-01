@@ -90,7 +90,7 @@ fun TodayScreen(vm: MainViewModel, navController: NavController, callDark: () ->
                                 author = item.a,
                                 date = item.deviceDate,
                                 onFavClick = {
-//                                    vm.addFavorites(item)
+                                    vm.addFavorites(item)
                                 }
                             )
                         }
