@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Favorite
@@ -20,6 +21,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -42,11 +44,12 @@ import java.util.Locale
 fun CommonProgressBar() {
     CircularProgressIndicator()
 }
+
 fun checkSignedIn(vm: MainViewModel, navController: NavController) {
     val currentUser = vm.currentUser
 
     if (currentUser != null) {
-        navController.navigate(NavigateInApp.TODAYSCREEN.route){
+        navController.navigate(NavigateInApp.TODAYSCREEN.route) {
             popUpTo(0)
         }
     }
@@ -66,32 +69,42 @@ fun getTodayDate(): String {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MenuDialog(navController: NavController,onDismiss : () -> Unit){
-    AlertDialog(onDismissRequest = { onDismiss.invoke() },
+fun MenuDialog(navController: NavController, onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = { onDismiss.invoke() },
         modifier = Modifier
-            .size(200.dp)
+            .width(200.dp)
             .clip(RoundedCornerShape(30.dp))
             .background(Color.White)
-    ){
-        Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-            Row(modifier = Modifier.clickable {
-                navController.navigate(NavigateInApp.FAVORITE.route)
-            }) {
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Row(
+                modifier = Modifier
+                    .clickable {
+                        navController.navigate(NavigateInApp.FAVORITE.route)
+                    }
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+
+            ) {
                 Text(text = "Favorites", fontSize = 20.sp)
                 Icon(imageVector = Icons.Rounded.Favorite, contentDescription = null)
             }
+
             Spacer(modifier = Modifier.height(30.dp))
-//                        Row(modifier = Modifier.clickable {
-//                                navController.navigate(NavigateInApp.DETAIL.route)
-//                        }) {
-//                                Text(text = "Settings",fontSize = 20.sp)
-//                                Icon(imageVector = Icons.Rounded.Settings, contentDescription = null)
-//                        }
-            Spacer(modifier = Modifier.height(30.dp))
-            Row(modifier = Modifier.clickable {
-                navController.navigate(NavigateInApp.ARCHIVE.route)
-            }) {
-                Text(text = "Archive",fontSize = 20.sp)
+
+            Row(modifier = Modifier
+                .clickable {
+                    navController.navigate(NavigateInApp.ARCHIVE.route)
+                }
+                .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = "Archive", fontSize = 20.sp)
                 Icon(imageVector = Icons.Rounded.Star, contentDescription = null)
             }
         }
@@ -99,24 +112,29 @@ fun MenuDialog(navController: NavController,onDismiss : () -> Unit){
 }
 
 @Composable
-fun QuoteView(content: String, author : String, date : String, onFavClick : () -> Unit){
-    val colors = listOf(Color(0xFF52ACFF), Color(0xFFFFE32C)) // Define your gradient colors
-    val brush = Brush.horizontalGradient(colors)
-    Card(modifier = Modifier
-        .fillMaxWidth()
-        .clip(RoundedCornerShape(8.dp)),
+fun QuoteView(content: String, author: String, date: String, onFavClick: () -> Unit) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(8.dp)),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp) // Applying elevation
     ) {
-        Column(modifier = Modifier
-            .background(brush = brush)
-            .padding(8.dp)) {
+        Column(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.primaryContainer)
+                .padding(8.dp)
+        ) {
             Text(text = content, fontSize = 20.sp, fontWeight = FontWeight.Bold)
             Row {
-                Text(text = "~ ${author}", modifier = Modifier
-                    .weight(1f)
-                    .padding(4.dp))
+                Text(
+                    text = "~ ${author}", modifier = Modifier
+                        .weight(1f)
+                        .padding(4.dp)
+                )
                 Text(text = "-${date}", modifier = Modifier.padding(4.dp))
-                Icon(imageVector = Icons.Rounded.Favorite, contentDescription = null, tint = Color.Red,
+                Icon(imageVector = Icons.Rounded.Favorite,
+                    contentDescription = null,
+                    tint = Color.Red,
                     modifier = Modifier
                         .padding(start = 4.dp)
                         .clickable {

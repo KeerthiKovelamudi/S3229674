@@ -3,11 +3,14 @@ package uk.ac.tees.mad.quotesapp.navigation
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import uk.ac.tees.mad.quotesapp.ui.screen.AuthenticationScreen
 import uk.ac.tees.mad.quotesapp.MainViewModel
+import uk.ac.tees.mad.quotesapp.ui.screen.Detail
 import uk.ac.tees.mad.quotesapp.ui.screen.LoginScreen
 import uk.ac.tees.mad.quotesapp.ui.screen.RegistrationScreen
 import uk.ac.tees.mad.quotesapp.ui.screen.SplashScreen
@@ -53,6 +56,14 @@ fun AppNavigation(callDark: () -> Unit) {
             }
             composable(NavigateInApp.TODAYSCREEN.route) {
                 TodayScreen(vm = vm, navController = navController, callDark = callDark)
+            }
+
+            composable(
+                NavigateInApp.DETAIL.route,
+                arguments = listOf(navArgument("quoteId") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val quoteId = backStackEntry.arguments?.getString("quoteId") ?: ""
+                Detail(vm, quoteId)
             }
         }
     }

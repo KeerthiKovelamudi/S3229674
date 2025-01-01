@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
@@ -44,7 +45,6 @@ fun TodayScreen(vm: MainViewModel, navController: NavController, callDark: () ->
                 }
             }
         }
-//        .background(Color.Green)
     ) {
         if (isMenuExpanded.value) {
             MenuDialog(navController, onDismiss = { isMenuExpanded.value = false })
@@ -54,11 +54,12 @@ fun TodayScreen(vm: MainViewModel, navController: NavController, callDark: () ->
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 30.dp, start = 0.dp)
+                    .padding(top = 36.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Today's Quotes",
-                    fontSize = 30.sp,
+                    text = "Quote of the day",
+                    fontSize = 24.sp,
                     modifier = Modifier
                         .padding(start = 5.dp)
                         .weight(1f)
@@ -70,7 +71,7 @@ fun TodayScreen(vm: MainViewModel, navController: NavController, callDark: () ->
                     imageVector = Icons.Default.MoreVert,
                     contentDescription = null,
                     modifier = Modifier
-                        .size(50.dp)
+                        .size(36.dp)
                         .clickable {
                             isMenuExpanded.value = true
                         })
