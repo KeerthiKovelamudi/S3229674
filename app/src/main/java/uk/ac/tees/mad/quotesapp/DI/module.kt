@@ -24,7 +24,7 @@ import uk.ac.tees.mad.quotesapp.data.Remote.QuoteService
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-    
+
     @Provides
     fun provideDatabase(
         @ApplicationContext context: Context,

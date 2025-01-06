@@ -145,3 +145,30 @@ fun QuoteView(content: String, author: String, date: String, onFavClick: () -> U
     }
 }
 
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SortDialog(onDismiss: () -> Unit, onAscendingClick: () -> Unit, onDescendingClick: () -> Unit){
+    AlertDialog(onDismissRequest = { onDismiss.invoke() }){
+        Column(modifier = Modifier
+            .padding(16.dp)
+            .size(250.dp)
+            .clip(RoundedCornerShape(30.dp))
+            .background(Color.White),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(text = "Sort The Items")
+            Text(text = "Sort by Quote Ascending", fontSize = 20.sp, modifier = Modifier
+                .background(Color.LightGray)
+                .clickable {
+                    onAscendingClick()
+                })
+            Spacer(modifier = Modifier.height(5.dp))
+            Text(text = "Sort by Quote Descending", fontSize = 20.sp, modifier = Modifier
+                .background(Color.LightGray)
+                .clickable {
+                    onDescendingClick()
+                })
+        }
+    }
+}

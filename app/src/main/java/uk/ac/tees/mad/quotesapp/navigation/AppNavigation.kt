@@ -10,7 +10,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import uk.ac.tees.mad.quotesapp.ui.screen.AuthenticationScreen
 import uk.ac.tees.mad.quotesapp.MainViewModel
+import uk.ac.tees.mad.quotesapp.ui.screen.Archive
 import uk.ac.tees.mad.quotesapp.ui.screen.Detail
+import uk.ac.tees.mad.quotesapp.ui.screen.Favorite
 import uk.ac.tees.mad.quotesapp.ui.screen.LoginScreen
 import uk.ac.tees.mad.quotesapp.ui.screen.RegistrationScreen
 import uk.ac.tees.mad.quotesapp.ui.screen.SplashScreen
@@ -57,13 +59,22 @@ fun AppNavigation(callDark: () -> Unit) {
             composable(NavigateInApp.TODAYSCREEN.route) {
                 TodayScreen(vm = vm, navController = navController, callDark = callDark)
             }
+            composable(NavigateInApp.FAVORITE.route) {
+                Favorite(vm, navController)
+            }
 
+            composable(NavigateInApp.YESTERDAYSCREEN.route) {
+
+            }
             composable(
                 NavigateInApp.DETAIL.route,
                 arguments = listOf(navArgument("quoteId") { type = NavType.StringType })
             ) { backStackEntry ->
                 val quoteId = backStackEntry.arguments?.getString("quoteId") ?: ""
                 Detail(vm, quoteId)
+            }
+            composable(NavigateInApp.ARCHIVE.route) {
+                Archive(vm, navController)
             }
         }
     }

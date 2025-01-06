@@ -57,6 +57,7 @@ class MainViewModel @Inject constructor(
             _loading.emit(false)
         }
         getandStore()
+        loadFavorites()
     }
 
     fun getandStore() {
@@ -98,6 +99,41 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun sortByASC(){
+        viewModelScope.launch(Dispatchers.IO) {
+            val sortedQuotes = repository.sortByASC()
+            _quotes.postValue(sortedQuotes)
+        }
+    }
+
+    fun sortByDESC(){
+        viewModelScope.launch(Dispatchers.IO) {
+            val sortedQuotes = repository.sortByDESC()
+            _quotes.postValue(sortedQuotes)
+        }
+    }
+
+    fun sortByFavASC(){
+        viewModelScope.launch(Dispatchers.IO) {
+            val sortedQuotes = repository.sortByFavASC()
+            _favorites.postValue(sortedQuotes)
+        }
+    }
+
+    fun sortByFavDESC(){
+        viewModelScope.launch(Dispatchers.IO) {
+            val sortedQuotes = repository.sortByFavDESC()
+            _favorites.postValue(sortedQuotes)
+        }
+    }
+
+    fun searchQuotes(content: String){
+        viewModelScope.launch(Dispatchers.IO) {
+            val searchResult = repository.searchQuotes(content)
+            Log.d("Search Result", searchResult.toString())
+            _quotes.postValue(searchResult)
+        }
+    }
 
     fun addFavorites(favQuote: Quote) {
         val result = mapEntity(favQuote)
@@ -123,6 +159,22 @@ class MainViewModel @Inject constructor(
             h = quote.h,
             deviceDate = quote.deviceDate
         )
+    }
+
+    fun searchFavorites(query: String){
+        Log.d("Search Query", query)
+        viewModelScope.launch(Dispatchers.IO) {
+            val searchResult = repository.searchFavorites(query)
+            Log.d("Search Result", searchResult.toString())
+            _favorites.postValue(searchResult)
+        }
+    }
+
+    fun deleteFav(fav: FavoriteQuotes){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteFav(fav)
+        }
+        loadFavorites()
     }
 
     fun signUp(context: Context, email: String, password: String) {
