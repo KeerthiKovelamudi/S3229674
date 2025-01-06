@@ -36,7 +36,7 @@ fun SplashScreen(vm: MainViewModel, navController: NavController) {
 fun SplashDesign() {
     Box {
         Image(
-            painter = painterResource(id = R.drawable.quote_app),
+            painter = painterResource(id = R.drawable.quotes_app),
             modifier = Modifier.size(500.dp),
             contentDescription = "SplashImage"
         )
