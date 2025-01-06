@@ -17,6 +17,7 @@ import uk.ac.tees.mad.quotesapp.ui.screen.LoginScreen
 import uk.ac.tees.mad.quotesapp.ui.screen.RegistrationScreen
 import uk.ac.tees.mad.quotesapp.ui.screen.SplashScreen
 import uk.ac.tees.mad.quotesapp.ui.screen.TodayScreen
+import uk.ac.tees.mad.quotesapp.ui.screen.YesterdayScreen
 
 
 enum class NavigateInApp(val route: String) {
@@ -64,7 +65,7 @@ fun AppNavigation(callDark: () -> Unit) {
             }
 
             composable(NavigateInApp.YESTERDAYSCREEN.route) {
-
+                YesterdayScreen(vm, navController)
             }
             composable(
                 NavigateInApp.DETAIL.route,
